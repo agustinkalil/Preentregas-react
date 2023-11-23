@@ -1,5 +1,5 @@
-
-import { Cartwidget } from "../CartWidget/Cartwidget"
+import { Link } from "react-router-dom"
+import { Cartwidget } from "../Cartwidget/Cartwidget"
 import styles from "./navbar.module.css"
 
 
@@ -14,19 +14,29 @@ export const Navbar = () => {
       <div className="collapse navbar-collapse" id="navbarText">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
+            <Link to="/">
             <a className="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">Categorias</a>
+            </Link>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">Sobre Nosotros</a>
           </li>
+          <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Modelos
+              </a>
+              <ul className="dropdown-menu">
+                  <li><Link to="/category/Adidas" className="dropdown-item" href="#">Adidas</Link></li>
+                  <li><Link to="/category/Nike" className="dropdown-item" href="#">Nike</Link></li>
+                  <li><Link to="/category/New Balance" className="dropdown-item" href="#">New Balance</Link></li>
+              </ul>
+          </li>
         </ul>
-        
-          <Cartwidget/>
       </div>
     </div>
+        <Link to="/cart"> 
+          <Cartwidget/>
+        </Link>
   </nav>
   )
 }

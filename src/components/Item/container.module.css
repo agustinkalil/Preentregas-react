@@ -27,3 +27,9 @@ h2 {
 	margin-bottom: 40px;
 	color: #848484;
 }
+
+.card {
+    max-width: 500px;
+    border: 1px solid #000;
+    border-radius: 3%;
+}
