@@ -1,12 +1,12 @@
 import { Item } from "../Item/Item"
 
 
-export const ItemList = ({productos}) => {
+export const ItemList = ({productos, titulo}) => {
   return (
     <>
     
   
-        <h1 className="text-center">Bienvenidos a mi tienda!</h1>
+        <h1 className="text-center mb-5 mt-5 ">{titulo}</h1>
         
           
                   <div className="d-flex flex-wrap">

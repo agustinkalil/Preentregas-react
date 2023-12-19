@@ -5,13 +5,13 @@ export const Item = ({id, brand, model, price, photo}) => {
   return (
                 <div className={styles.card}>
                    <img src={photo} className="card-img-top" alt={brand}/>
-                   <div className="card-body">
+                   <div className="card">
                      <h5 className="card-title">{brand}</h5>
                      <p className="card-text">{model}</p>
                      <Link to={`/item/${id}`}>
-                       <button className="card-text btn btn-outline-success">Detalles</button>
+                       <button className="card-text btn btn-outline-success btn-sm">Detalles</button>
                      </Link>
-                     <a href="#" className="btn btn-success">${price}</a>
+                     <button href="#" className="card-text btn btn-success btn-sm">${price}</button>
                    </div>
                 </div>
   )

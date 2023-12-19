@@ -1,23 +1,71 @@
 import { useEffect, useState } from "react"
-import { getProducts } from "../../data/asyncMock"
 import { ItemList } from "../Itemlist/ItemList"
 import { useParams } from "react-router-dom";
-import styles from "./loading.module.css"
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../config/firebaseConfig";
+import { seedProducts } from "../../Utils/seedProducts";
 
 export const ItemListContainer = () => {
-  const { category } = useParams();
+
+  const [productos, setProductos] = useState([]);
   
-  const [productos, setProductos] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [titulo, setTitulo] = useState("Bienvenidos a mi tienda!");
+
+  const category = useParams().category;
+  
+
+  
+  useEffect(() => {
+      const productosRef = collection(db, "productos");
+    
+      const q = category ? query( productosRef, where("category", "==", category)) : productosRef;
+    
+      getDocs(q)
+        .then((resp) => {
+    
+          setProductos( 
+                        resp.docs.map((doc) => {
+                        return { ...doc.data(), id: doc.id}
+              })
+            );
+        })
+
+        //seedProducts()
+    }, [category])
+  
+  return (
+    <>
+    {<ItemList productos={productos} titulo={titulo}/>}
+    
+    </>
+  )
+    
+};
 
 
-    useEffect(() => {
-      setIsLoading(true)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//llamado al asyncMock
+
+/* setIsLoading(true)
       getProducts()
 
         .then((resp) => {
             if(category){
               const productosFilter = resp.filter( producto => producto.category === category)
+              settitulo(category)
 
                   if(productosFilter.length > 0){
                     setProductos(productosFilter)
@@ -27,20 +75,10 @@ export const ItemListContainer = () => {
 
             }else {
               setProductos(resp)
+              settitulo("Bienvenidos a mi tienda!")
             }
 
           setIsLoading(false)
         }
           )
-        .catch((error) => console.log(error));
-    }, [category]);
-  
-  return (
-    <>
-    { isLoading ? <div className={styles.spinner}></div> : <ItemList productos={productos} />}
-    
-    </>
-  )
-    
-};
-
+        .catch((error) => console.log(error)); */
